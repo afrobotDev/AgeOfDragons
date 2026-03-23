@@ -175,3 +175,51 @@ def fight(attacker, defender):
   print("--------------------------")
 
 main()
+
+class Human:
+    def __init__(self, pos_x, pos_y, speed, stamina=10):
+        self.__pos_x = pos_x
+        self.__pos_y = pos_y
+        self.__speed = speed
+        self.__stamina = stamina
+
+    def __sprint(self, move_method, steps=2):
+        self.__raise_if_cannot_sprint()
+        move_method(steps)
+        self.__use_sprint_stamina()
+
+    def sprint_right(self):
+        self.__sprint(self.move_right)
+
+    def sprint_left(self):
+        self.__sprint(self.move_left)
+
+    def sprint_up(self):
+        self.__sprint(self.move_up)
+
+    def sprint_down(self):
+        self.__sprint(self.move_down)
+
+    def __raise_if_cannot_sprint(self):
+        if self.__stamina <= 0:
+            raise ValueError("not enough stamina to sprint")
+
+    def __use_sprint_stamina(self):
+        self.__stamina -= 1
+
+    def move_right(self, steps=1):
+        self.__pos_x += self.__speed * steps
+
+    def move_left(self, steps=1):
+        self.__pos_x -= self.__speed * steps
+
+    def move_up(self, steps=1):
+        self.__pos_y += self.__speed * steps
+   
+    def move_down(self, steps=1):
+        self.__pos_y -= self.__speed * steps
+
+    def get_position(self):
+        return self.__pos_x, self.__pos_y
+
+
